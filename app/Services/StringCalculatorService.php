@@ -13,7 +13,7 @@ class StringCalculatorService
 
         list($delimiters, $numbers) = self::extract_delimiters($numbers);
 
-        $numbers = preg_split('/('.implode('|', $delimiters).')/', str_replace('\n', ',', $numbers));
+        $numbers = preg_split('/('.implode('|', $delimiters).')/', str_replace('\n', $delimiters[0], $numbers));
 
         $total = 0;
 
@@ -47,6 +47,7 @@ class StringCalculatorService
 
             preg_match_all("/\[[^\]]*\]/", ($explodeDelimiters[0] ?? ''), $matches);
 
+            $delimiters = [];
             foreach ($matches[0] as $match) {
                 $delimiters[] = str_replace(['[',']'], '', $match);
             }
